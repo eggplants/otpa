@@ -218,7 +218,7 @@ def _dup_otpauth_link(name):
 
 def test_ca_dedupe_prompts_and_keeps_choice(monkeypatch, capsys):
     links = migration.otpauth_to_migration([_dup_otpauth_link("a"), _dup_otpauth_link("b")])
-    monkeypatch.setattr("builtins.input", lambda _prompt: "2")
+    monkeypatch.setattr("builtins.input", lambda: "2")
     assert cli.main(["ca", "--dedupe", *links]) == 0
     out = capsys.readouterr().out.strip().splitlines()
     assert out == [_dup_otpauth_link("b") + "&period=30"]
@@ -226,7 +226,7 @@ def test_ca_dedupe_prompts_and_keeps_choice(monkeypatch, capsys):
 
 def test_ca_dedupe_defaults_to_first_on_blank_input(monkeypatch, capsys):
     links = migration.otpauth_to_migration([_dup_otpauth_link("a"), _dup_otpauth_link("b")])
-    monkeypatch.setattr("builtins.input", lambda _prompt: "")
+    monkeypatch.setattr("builtins.input", lambda: "")
     assert cli.main(["ca", "-d", *links]) == 0
     out = capsys.readouterr().out.strip().splitlines()
     assert out == [_dup_otpauth_link("a") + "&period=30"]
@@ -234,7 +234,7 @@ def test_ca_dedupe_defaults_to_first_on_blank_input(monkeypatch, capsys):
 
 def test_ca_dedupe_prompt_prefixes_names_with_issuer(monkeypatch, capsys):
     links = migration.otpauth_to_migration([_dup_otpauth_link("a"), _dup_otpauth_link("b")])
-    monkeypatch.setattr("builtins.input", lambda _prompt: "1")
+    monkeypatch.setattr("builtins.input", lambda: "1")
     assert cli.main(["ca", "--dedupe", *links]) == 0
     err = capsys.readouterr().err
     assert "[1] Svc: Svc:a" in err
@@ -242,7 +242,7 @@ def test_ca_dedupe_prompt_prefixes_names_with_issuer(monkeypatch, capsys):
 
 
 def test_ca_dedupe_no_prompt_without_duplicates(monkeypatch, capsys):
-    def fail_input(_prompt):
+    def fail_input():
         msg = "input() should not be called"
         raise AssertionError(msg)
 
@@ -257,14 +257,14 @@ def test_ca_dedupe_reads_from_file(monkeypatch, tmp_path, capsys):
     links = migration.otpauth_to_migration([_dup_otpauth_link("a"), _dup_otpauth_link("b")])
     f = tmp_path / "links.txt"
     f.write_text("\n".join(links) + "\n", encoding="utf-8")
-    monkeypatch.setattr("builtins.input", lambda _prompt: "1")
+    monkeypatch.setattr("builtins.input", lambda: "1")
     assert cli.main(["ca", "--dedupe", "-f", str(f)]) == 0
     out = capsys.readouterr().out.strip().splitlines()
     assert out == [_dup_otpauth_link("a") + "&period=30"]
 
 
 def test_cm_dedupe_also_applies_when_encoding_otpauth_links(monkeypatch, capsys):
-    monkeypatch.setattr("builtins.input", lambda _prompt: "2")
+    monkeypatch.setattr("builtins.input", lambda: "2")
     assert cli.main(["cm", "--dedupe", _dup_otpauth_link("a"), _dup_otpauth_link("b")]) == 0
     out = capsys.readouterr().out.strip().splitlines()
     assert len(out) == 1
@@ -281,7 +281,7 @@ def test_ca_without_dedupe_prints_all_duplicates(capsys):
 
 
 def test_ca_dedupe_with_default_keeps_first_without_prompting(monkeypatch, capsys):
-    def fail_input(_prompt):
+    def fail_input():
         msg = "input() should not be called"
         raise AssertionError(msg)
 
@@ -293,7 +293,7 @@ def test_ca_dedupe_with_default_keeps_first_without_prompting(monkeypatch, capsy
 
 
 def test_ca_dedupe_with_default_short_flag(monkeypatch, capsys):
-    def fail_input(_prompt):
+    def fail_input():
         msg = "input() should not be called"
         raise AssertionError(msg)
 
@@ -316,7 +316,7 @@ _EMPTY_ISSUER_LINK = "otpauth://totp/alice?secret=JBSWY3DPEHPK3PXP"
 
 def test_cm_rename_empty_issuer_prompts_and_sets_values(monkeypatch, capsys):
     responses = iter(["NewIssuer", "renamed"])
-    monkeypatch.setattr("builtins.input", lambda _prompt: next(responses))
+    monkeypatch.setattr("builtins.input", lambda: next(responses))
     assert cli.main(["cm", "--rename-empty-issuer", _EMPTY_ISSUER_LINK]) == 0
     out = capsys.readouterr().out.strip().splitlines()
     payload = migration.migration_link_to_payload(out[0])
@@ -327,7 +327,7 @@ def test_cm_rename_empty_issuer_prompts_and_sets_values(monkeypatch, capsys):
 
 def test_cm_rename_empty_issuer_keeps_name_on_blank_input(monkeypatch, capsys):
     responses = iter(["NewIssuer", ""])
-    monkeypatch.setattr("builtins.input", lambda _prompt: next(responses))
+    monkeypatch.setattr("builtins.input", lambda: next(responses))
     assert cli.main(["cm", "-r", _EMPTY_ISSUER_LINK]) == 0
     out = capsys.readouterr().out.strip().splitlines()
     payload = migration.migration_link_to_payload(out[0])
@@ -337,7 +337,7 @@ def test_cm_rename_empty_issuer_keeps_name_on_blank_input(monkeypatch, capsys):
 
 
 def test_cm_rename_empty_issuer_no_prompt_when_issuer_present(monkeypatch, capsys):
-    def fail_input(_prompt):
+    def fail_input():
         msg = "input() should not be called"
         raise AssertionError(msg)
 
@@ -350,7 +350,7 @@ def test_cm_dedupe_runs_before_rename_empty_issuer(monkeypatch, capsys):
     link_a = "otpauth://totp/alice?secret=JBSWY3DPEHPK3PXP"
     link_b = "otpauth://totp/alice2?secret=JBSWY3DPEHPK3PXP"
     responses = iter(["2", "NewIssuer", "renamed"])
-    monkeypatch.setattr("builtins.input", lambda _prompt: next(responses))
+    monkeypatch.setattr("builtins.input", lambda: next(responses))
     assert cli.main(["cm", "-d", "-r", link_a, link_b]) == 0
     out = capsys.readouterr().out.strip().splitlines()
     assert len(out) == 1
@@ -420,10 +420,11 @@ def test_i_out_writes_to_file(tmp_path, capsys):
 def test_out_prompts_still_go_to_real_stderr_not_file(monkeypatch, tmp_path, capsys):
     links = migration.otpauth_to_migration([_dup_otpauth_link("a"), _dup_otpauth_link("b")])
     out = tmp_path / "result.txt"
-    monkeypatch.setattr("builtins.input", lambda _prompt: "1")
+    monkeypatch.setattr("builtins.input", lambda: "1")
     assert cli.main(["ca", "-d", "-o", str(out), *links]) == 0
     err = capsys.readouterr().err
     assert "duplicate accounts" in err
+    assert "keep which one?" in err
     assert out.read_text(encoding="utf-8").strip() == _dup_otpauth_link("a") + "&period=30"
 
 

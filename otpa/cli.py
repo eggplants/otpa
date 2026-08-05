@@ -234,7 +234,8 @@ def _resolve_duplicates(params: list[migration.OtpParameters], *, prompt: bool =
         print(f"\nduplicate accounts (secret=***, issuer={sample.issuer!r}):", file=sys.stderr)
         for n, idx in enumerate(group, start=1):
             print(f"  [{n}] {sample.issuer}: {params[idx].name}", file=sys.stderr)
-        choice = input(f"keep which one? [1-{len(group)}, default 1]: ").strip()
+        print(f"keep which one? [1-{len(group)}, default 1]: ", end="", file=sys.stderr, flush=True)
+        choice = input().strip()
         try:
             keep = int(choice) - 1 if choice else 0
         except ValueError:
@@ -252,8 +253,10 @@ def _rename_empty_issuers(params: list[migration.OtpParameters]) -> None:
         if op.issuer:
             continue
         print(f"\naccount with empty issuer (name={op.name!r}):", file=sys.stderr)
-        op.issuer = input("new issuer: ").strip()
-        new_name = input(f"new name [{op.name}]: ").strip()
+        print("new issuer: ", end="", file=sys.stderr, flush=True)
+        op.issuer = input().strip()
+        print(f"new name [{op.name}]: ", end="", file=sys.stderr, flush=True)
+        new_name = input().strip()
         if new_name:
             op.name = new_name
 
