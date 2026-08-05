@@ -10,7 +10,7 @@
   <https://github.com/eggplants/otpa/actions/workflows/ci.yml>
 )
 
-Convert between plain [`otpauth://`](https://github.com/google/google-authenticator/wiki/Key-Uri-Format) links and Google Authenticator `otpauth-migration://offline?data=...` export links.
+Convert between plain [`otpauth://`](https://www.ietf.org/archive/id/draft-linuxgemini-otpauth-uri-00.html) links and Google Authenticator `otpauth-migration://offline?data=...` export links.
 
 Inspired by [dim13/otpauth](https://github.com/dim13/otpauth).
 
