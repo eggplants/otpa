@@ -79,26 +79,26 @@ pip<span class="w"> </span>install<span class="w"> </span>otpa
 
 <div class="pdoc-code codehilite">
 <pre><span></span><code><span class="c1"># -&gt; otpauth-migration:// link(s)</span>
-otpa<span class="w"> </span>cm<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="w"> </span><span class="s2">&quot;otpauth://totp/ACME:alice?secret=JBSWY3DPEHPK3PXP&amp;issuer=ACME&quot;</span>
+otpa<span class="w"> </span>cm<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
 otpa<span class="w"> </span>cm<span class="w"> </span>-f<span class="w"> </span>otpauth-links.txt<span class="w">             </span><span class="c1"># read links from a file</span>
 otpa<span class="w"> </span>cm<span class="w"> </span>-f<span class="w"> </span>otpauth-links.txt<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span><span class="w">        </span><span class="c1"># same as --batch-size 5 (cm only)</span>
 otpa<span class="w"> </span>cm<span class="w"> </span>-f<span class="w"> </span>a.txt<span class="w"> </span>-f<span class="w"> </span>b.txt<span class="w"> </span>link1<span class="w"> </span>link2<span class="w">    </span><span class="c1"># -f may repeat, combined with positional links</span>
 
 <span class="c1"># -&gt; otpauth:// links</span>
-otpa<span class="w"> </span>ca<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;otpauth-migration://...&quot;</span><span class="w"> </span>...<span class="o">]</span>
+otpa<span class="w"> </span>ca<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
 otpa<span class="w"> </span>ca<span class="w"> </span>-f<span class="w"> </span>migration-links.txt
 
 <span class="c1"># interactively resolve accounts sharing the same secret/issuer</span>
-otpa<span class="w"> </span>cm<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="w"> </span>...
-otpa<span class="w"> </span>ca<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="w"> </span>...
+otpa<span class="w"> </span>cm<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
+otpa<span class="w"> </span>ca<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
 
 <span class="c1"># open each output link as a QR code in your browser instead of printing them</span>
 otpa<span class="w"> </span>cm<span class="w"> </span>--qr<span class="w"> </span><span class="s2">&quot;otpauth://totp/ACME:alice?secret=JBSWY3DPEHPK3PXP&amp;issuer=ACME&quot;</span>
 otpa<span class="w"> </span>ca<span class="w"> </span>--qr<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
 
 <span class="c1"># inspect either kind of link</span>
-otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
 otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpauth://totp/Example?secret=JBSWY3DPEHPK3PXP&quot;</span>
+otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
 </code></pre>
 </div>
 
