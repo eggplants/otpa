@@ -26,26 +26,26 @@ pip install otpa
 
 ```bash
 # -> otpauth-migration:// link(s)
-otpa cm "otpauth-migration://offline?data=..." "otpauth://totp/ACME:alice?secret=JBSWY3DPEHPK3PXP&issuer=ACME"
+otpa cm "otpauth-migration://offline?data=..."
 otpa cm -f otpauth-links.txt             # read links from a file
 otpa cm -f otpauth-links.txt -n 5        # same as --batch-size 5 (cm only)
 otpa cm -f a.txt -f b.txt link1 link2    # -f may repeat, combined with positional links
 
 # -> otpauth:// links
-otpa ca "otpauth-migration://offline?data=..." ["otpauth-migration://..." ...]
+otpa ca "otpauth-migration://offline?data=..."
 otpa ca -f migration-links.txt
 
 # interactively resolve accounts sharing the same secret/issuer
-otpa cm -d "otpauth-migration://offline?data=..." ...
-otpa ca -d "otpauth-migration://offline?data=..." ...
+otpa cm -d "otpauth-migration://offline?data=..."
+otpa ca -d "otpauth-migration://offline?data=..."
 
 # open each output link as a QR code in your browser instead of printing them
 otpa cm --qr "otpauth://totp/ACME:alice?secret=JBSWY3DPEHPK3PXP&issuer=ACME"
 otpa ca --qr "otpauth-migration://offline?data=..."
 
 # inspect either kind of link
-otpa i "otpauth-migration://offline?data=..."
 otpa i "otpauth://totp/Example?secret=JBSWY3DPEHPK3PXP"
+otpa i "otpauth-migration://offline?data=..."
 ```
 
 `-f`/`--file` reads one link per line; blank lines and `#` comments are ignored.
