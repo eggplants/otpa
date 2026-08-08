@@ -63,11 +63,11 @@ otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example&p
 from otpa import migration
 
 # Expand a migration batch into otpauth:// links.
-urls = migration.migration_to_otpauth("otpauth-migration://offline?data=...")
+otpauth_links = migration.migration_to_otpauth("otpauth-migration://offline?data=...")
 
 # Bundle otpauth:// links into one or more migration links
 # (split across links when count > batch_size, default 10).
-links = migration.otpauth_to_migration([
+migration_links = migration.otpauth_to_migration([
     "otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example",
 ], batch_size=10)
 
