@@ -1,9 +1,9 @@
 version = 1
-revision = 3
+revision = 4
 requires-python = ">=3.11"
 
 [options]
-exclude-newer = "2026-07-29T16:17:46.412537Z"
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
 exclude-newer-span = "P7D"
 
 [[package]]
@@ -267,21 +267,6 @@ dev = [
 docs = [
     { name = "pdoc" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "pypng", specifier = ">=0.20.1" },
-    { name = "qrcode", specifier = ">=7.4.2" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pymarkdownlnt", specifier = ">=0.9.33" },
-    { name = "pyproject-fmt", specifier = ">=2.11.1" },
-    { name = "pytest", specifier = ">=9.0.2" },
-    { name = "pytest-cov", specifier = ">=7" },
-]
-docs = [{ name = "pdoc", specifier = ">=16" }]
 
 [[package]]
 name = "packaging"
