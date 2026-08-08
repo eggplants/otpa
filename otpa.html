@@ -118,11 +118,11 @@ otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpa
 <pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">otpa</span><span class="w"> </span><span class="kn">import</span> <span class="n">migration</span>
 
 <span class="c1"># Expand a migration batch into otpauth:// links.</span>
-<span class="n">urls</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">migration_to_otpauth</span><span class="p">(</span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="p">)</span>
+<span class="n">otpauth_links</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">migration_to_otpauth</span><span class="p">(</span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="p">)</span>
 
 <span class="c1"># Bundle otpauth:// links into one or more migration links</span>
 <span class="c1"># (split across links when count &gt; batch_size, default 10).</span>
-<span class="n">links</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">otpauth_to_migration</span><span class="p">([</span>
+<span class="n">migration_links</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">otpauth_to_migration</span><span class="p">([</span>
     <span class="s2">&quot;otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&amp;issuer=Example&quot;</span><span class="p">,</span>
 <span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
