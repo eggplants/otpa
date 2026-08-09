@@ -17,8 +17,13 @@ Inspired by [dim13/otpauth](https://github.com/dim13/otpauth).
 ## Install
 
 ```bash
+# mise
+mise use -g pipx:otpa
+
+# pipx
 pipx install otpa
-# or
+
+# pip
 pip install otpa
 ```
 
