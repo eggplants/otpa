@@ -11,8 +11,8 @@ Subcommands::
 may freely mix ``otpauth://`` and ``otpauth-migration://`` links, since the
 output scheme is determined by the subcommand rather than the input. ``cm``
 always outputs ``otpauth-migration://`` link(s); ``ca`` always outputs
-``otpauth://`` links. ``-n``/``--batch-size`` and ``--batch-id`` only apply to
-``cm`` (they control how accounts are split across output migration links).
+``otpauth://`` links. ``-n``/``--batch-size`` only applies to ``cm`` (it
+controls how accounts are split across output migration links).
 
 Both ``cm`` and ``ca`` also accept: ``-d``/``--dedupe`` (interactively resolve
 accounts sharing the same secret and issuer before printing) or
@@ -144,7 +144,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="Convert otpauth:// and/or otpauth-migration:// link(s) into otpauth-migration:// link(s).",
     )
     _add_convert_args(p_cm)
-    p_cm.add_argument("--batch-id", type=int, default=0, help="batch_id field for the migration payload.")
     p_cm.add_argument(
         "-n",
         "--batch-size",
@@ -373,7 +372,7 @@ def cmd_cm(args: argparse.Namespace) -> int:
     """`otpa cm`: convert any mix of otpauth:// / otpauth-migration:// links into migration link(s)."""
     params = _gather_params(_gather_links(args))
     params = _apply_interactive_options(params, args)
-    out_links = migration.params_to_migration(params, batch_id=args.batch_id, batch_size=args.batch_size)
+    out_links = migration.params_to_migration(params, batch_size=args.batch_size)
     _emit_links(out_links, args)
     return 0
 

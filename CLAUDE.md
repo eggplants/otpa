@@ -70,7 +70,7 @@ protobuf mapping) → proto (raw wire codec) → models (plain dataclasses/enums
   link is parsed by scheme (`_parse_any_link`/`_gather_params`) and flattened into one
   `OtpParameters` list regardless of its original scheme, so mixed input just merges accounts;
   the subcommand alone decides the *output* scheme: `cm` always encodes to one or more
-  `otpauth-migration://` links (only `cm` has `-n`/`--batch-size`/`--batch-id`, since batching is
+  `otpauth-migration://` links (only `cm` has `-n`/`--batch-size`, since batching is
   meaningless once already decoded to `otpauth://`), `ca` always decodes to `otpauth://` links.
   `-d`/`--dedupe` (prompts) or `-D`/`--dedupe-with-default` (auto-keeps the first in each group,
   mutually exclusive with `-d`) resolve `duplicate_groups()` before printing, then

@@ -139,9 +139,10 @@ def test_ca_rejects_batch_size_option(capsys):
     assert exc_info.value.code == 2
 
 
-def test_ca_rejects_batch_id_option(capsys):
+@pytest.mark.parametrize("command", ["cm", "ca"])
+def test_batch_id_option_is_removed(command):
     with pytest.raises(SystemExit) as exc_info:
-        cli.main(["ca", "--batch-id", "1", OTPAUTH_LINK])
+        cli.main([command, "--batch-id", "1", OTPAUTH_LINK])
     assert exc_info.value.code == 2
 
 
