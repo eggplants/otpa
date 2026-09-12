@@ -9,7 +9,10 @@ See https://protobuf.dev/programming-guides/encoding/ for the wire format.
 
 from __future__ import annotations
 
-from collections.abc import Iterator
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 WIRE_VARINT = 0
 WIRE_LEN = 2
