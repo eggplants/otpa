@@ -84,26 +84,26 @@ pip<span class="w"> </span>install<span class="w"> </span>otpa
 
 <div class="pdoc-code codehilite">
 <pre><span></span><code><span class="c1"># -&gt; otpauth-migration:// link(s)</span>
-otpa<span class="w"> </span>cm<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
+otpa<span class="w"> </span>cm<span class="w"> </span><span class="s2">"otpauth-migration://offline?data=..."</span>
 otpa<span class="w"> </span>cm<span class="w"> </span>-f<span class="w"> </span>otpauth-links.txt<span class="w">             </span><span class="c1"># read links from a file</span>
 otpa<span class="w"> </span>cm<span class="w"> </span>-f<span class="w"> </span>otpauth-links.txt<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span><span class="w">        </span><span class="c1"># same as --batch-size 5 (cm only)</span>
 otpa<span class="w"> </span>cm<span class="w"> </span>-f<span class="w"> </span>a.txt<span class="w"> </span>-f<span class="w"> </span>b.txt<span class="w"> </span>link1<span class="w"> </span>link2<span class="w">    </span><span class="c1"># -f may repeat, combined with positional links</span>
 
 <span class="c1"># -&gt; otpauth:// links</span>
-otpa<span class="w"> </span>ca<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
+otpa<span class="w"> </span>ca<span class="w"> </span><span class="s2">"otpauth-migration://offline?data=..."</span>
 otpa<span class="w"> </span>ca<span class="w"> </span>-f<span class="w"> </span>migration-links.txt
 
 <span class="c1"># interactively resolve accounts sharing the same secret/issuer</span>
-otpa<span class="w"> </span>cm<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
-otpa<span class="w"> </span>ca<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
+otpa<span class="w"> </span>cm<span class="w"> </span>-d<span class="w"> </span><span class="s2">"otpauth-migration://offline?data=..."</span>
+otpa<span class="w"> </span>ca<span class="w"> </span>-d<span class="w"> </span><span class="s2">"otpauth-migration://offline?data=..."</span>
 
 <span class="c1"># open each output link as a QR code in your browser instead of printing them</span>
-otpa<span class="w"> </span>cm<span class="w"> </span>--qr<span class="w"> </span><span class="s2">&quot;otpauth://totp/ACME:alice?secret=JBSWY3DPEHPK3PXP&amp;issuer=ACME&quot;</span>
-otpa<span class="w"> </span>ca<span class="w"> </span>--qr<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
+otpa<span class="w"> </span>cm<span class="w"> </span>--qr<span class="w"> </span><span class="s2">"otpauth://totp/ACME:alice?secret=JBSWY3DPEHPK3PXP&amp;issuer=ACME"</span>
+otpa<span class="w"> </span>ca<span class="w"> </span>--qr<span class="w"> </span><span class="s2">"otpauth-migration://offline?data=..."</span>
 
 <span class="c1"># inspect either kind of link</span>
-otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpauth://totp/Example?secret=JBSWY3DPEHPK3PXP&quot;</span>
-otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span>
+otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">"otpauth://totp/Example?secret=JBSWY3DPEHPK3PXP"</span>
+otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">"otpauth-migration://offline?data=..."</span>
 </code></pre>
 </div>
 
@@ -112,7 +112,7 @@ otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpa
 <h3 id="example">Example</h3>
 
 <div class="pdoc-code codehilite">
-<pre><span></span><code><span class="gp">$ </span>otpa<span class="w"> </span>ca<span class="w"> </span><span class="s2">&quot;otpauth-migration://offline?data=CjEKCkhlbGxvId6tvu8SGEV4YW1wbGU6YWxpY2VAZ29vZ2xlLmNvbRoHRXhhbXBsZTAC&quot;</span>
+<pre><span></span><code><span class="gp">$ </span>otpa<span class="w"> </span>ca<span class="w"> </span><span class="s2">"otpauth-migration://offline?data=CjEKCkhlbGxvId6tvu8SGEV4YW1wbGU6YWxpY2VAZ29vZ2xlLmNvbRoHRXhhbXBsZTAC"</span>
 <span class="go">otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&amp;issuer=Example&amp;period=30</span>
 </code></pre>
 </div>
@@ -123,16 +123,16 @@ otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpa
 <pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">otpa</span><span class="w"> </span><span class="kn">import</span> <span class="n">migration</span>
 
 <span class="c1"># Expand a migration batch into otpauth:// links.</span>
-<span class="n">otpauth_links</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">migration_to_otpauth</span><span class="p">(</span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="p">)</span>
+<span class="n">otpauth_links</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">migration_to_otpauth</span><span class="p">(</span><span class="s2">"otpauth-migration://offline?data=..."</span><span class="p">)</span>
 
 <span class="c1"># Bundle otpauth:// links into one or more migration links</span>
 <span class="c1"># (split across links when count &gt; batch_size, default 10).</span>
 <span class="n">migration_links</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">otpauth_to_migration</span><span class="p">([</span>
-    <span class="s2">&quot;otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&amp;issuer=Example&quot;</span><span class="p">,</span>
+    <span class="s2">"otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&amp;issuer=Example"</span><span class="p">,</span>
 <span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="c1"># Lower-level access to the decoded protobuf payload.</span>
-<span class="n">payload</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">migration_link_to_payload</span><span class="p">(</span><span class="s2">&quot;otpauth-migration://offline?data=...&quot;</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">migration_link_to_payload</span><span class="p">(</span><span class="s2">"otpauth-migration://offline?data=..."</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">payload</span><span class="o">.</span><span class="n">otp_parameters</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">.</span><span class="n">issuer</span><span class="p">,</span> <span class="n">migration</span><span class="o">.</span><span class="n">encode_secret</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">secret</span><span class="p">))</span>
 </code></pre>
@@ -143,14 +143,14 @@ otpa<span class="w"> </span>i<span class="w"> </span><span class="s2">&quot;otpa
 
                         <label class="view-source-button" for="mod-otpa-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="sd">&quot;&quot;&quot;.. include:: ../README.md&quot;&quot;&quot;</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="sd">""".. include:: ../README.md"""</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.metadata</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos">4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos">5</span></a><span class="k">try</span><span class="p">:</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos">6</span></a>    <span class="n">__version__</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos">7</span></a><span class="k">except</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">PackageNotFoundError</span><span class="p">:</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos">8</span></a>    <span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.0.0&quot;</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">8</span></a>    <span class="n">__version__</span> <span class="o">=</span> <span class="s2">"0.0.0"</span>
 </span></pre></div>
 
 
